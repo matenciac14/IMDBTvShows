@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body{
+  background-color: #879DAB;
+}
+#main{
+ margin-bottom: 0;
+ padding: 5px;
+}
+.card{
+  min-height: 30vh;
+  color: aliceblue;
+}
+
