@@ -2,7 +2,10 @@ import {
   GET_MOVIE_ESPECIFIC,
   GET_MOVIES_ESPECIFICOK,
   GET_MOVIES_ESPECIFICERROR,
-  RETURN_BACK
+  RETURN_BACK,
+  GET_TVSEASONS,
+  GET_TVSEASONS_OK,
+  GET_TVSEASONS_ERROR
 } from "../types";
 
 const initialState = {
@@ -11,7 +14,8 @@ const initialState = {
     error: null,
     changepage: false,
     loading: false,
-    episodes:[]
+    season:{},
+    loadingE: false,
   };
   
   export default function (state = initialState, action) {
@@ -46,8 +50,28 @@ const initialState = {
           changepage: false,
           active:false,
           movie:{},
+          season:{},
           loading:false
 
+        }
+      case GET_TVSEASONS:
+        return{
+          ...state,
+          loadingE:true,
+          error:null
+        }
+      case GET_TVSEASONS_OK:
+        return{
+          ...state,
+          season:action.payload
+
+
+        }
+      case GET_TVSEASONS_ERROR:
+        return{
+          ...state,
+          error:true,
+          loadingE:false
         }
   
       default:

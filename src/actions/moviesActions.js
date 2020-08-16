@@ -1,21 +1,38 @@
-import { GET_MOVIES, GET_MOVIES_OK, GET_MOVIES_ERROR } from "../types";
+import { GET_MOVIES, GET_MOVIES_OK, GET_MOVIES_ERROR,GET_MOVIESPAGE_OK,GET_MOVIESPAGE_ERROR } from "../types";
+import {key} from '../config/key';
 
 import clientAxios from "../config/axios";
 
-const key = "b2907782d07859a652052d3bae537475";
 
-export function getMoviesAction(word, category) {
+
+export function getMoviesAction(word, category,page) {
   return async (dispatch) => {
     dispatch(getmoviename(category));
     try {
-      
       const result = await clientAxios.get(
-        `search/${category}?api_key=${key}&query=${word}`
+        `search/${category}?api_key=${key}&query=${word}&page=${page}`
       );
-      console.log(result.data);
-      dispatch(getmovienameOk(result.data));
+      console.log(result.data.results);
+      dispatch(getmovienameOk(result.data.results));
     } catch (error) {
       dispatch(getmovienameERROR());
+    }
+  };
+}
+
+export function getMoviesActionPage(word, category,page) {
+
+  return async (dispatch) => {
+    try {
+      const result = await clientAxios.get(
+        `search/${category}?api_key=${key}&query=${word}&page=${page}`
+      );
+      //console.log(result.data);
+      console.log(result.data.results);
+      dispatch(getmovienamePageOk(result.data.results));
+    } catch (error) {
+      dispatch(getmovienamePageERROR());
+      console.log(error)
     }
   };
 }
@@ -32,6 +49,15 @@ const getmovienameOk = (movies) => ({
 
 const getmovienameERROR = () => ({
   type: GET_MOVIES_ERROR,
+  payload: true,
+});
+const getmovienamePageOk = (moviesNew) => ({
+  type: GET_MOVIESPAGE_OK,
+  payload: moviesNew,
+});
+
+const getmovienamePageERROR = () => ({
+  type: GET_MOVIESPAGE_ERROR,
   payload: true,
 });
 

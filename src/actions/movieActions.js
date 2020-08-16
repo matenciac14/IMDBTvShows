@@ -1,13 +1,22 @@
-import { GET_MOVIE_ESPECIFIC, GET_MOVIES_ESPECIFICOK, GET_MOVIES_ESPECIFICERROR, RETURN_BACK } from "../types";
+import { 
+  GET_MOVIE_ESPECIFIC,
+  GET_MOVIES_ESPECIFICOK,
+  GET_MOVIES_ESPECIFICERROR,
+  RETURN_BACK,
+  GET_TVSEASONS,
+  GET_TVSEASONS_OK,
+  GET_TVSEASONS_ERROR
+  
+} from "../types";
 
 import clientAxios from "../config/axios";
-
-const key = "b2907782d07859a652052d3bae537475";
+import {key} from '../config/key';
 
 export function getMovieDetail(id, category) {
   console.log(category)
 
   return async (dispatch) => {
+
     dispatch(getmoviepecific());
     try {
       const result = await clientAxios.get(
@@ -27,13 +36,32 @@ export function returnPageHome() {
   }
 }
 
+export function getepisodesFromSeason(id,num) {
+console.log(num +"--"+id)
+
+return async (dispatch) => {
+  console.log("dispatch")
+  dispatch(getEpisodes());
+  try {
+    const result = await clientAxios.get(
+      `tv/${id}/season/${num}?api_key=${key}`
+    );
+    console.log(result.data);
+    dispatch(getEpisodesOk(result.data));
+  } catch (error) {
+    dispatch(getEpisodesError());
+  }
+};
+}
+
+
 const getmoviepecific = () => ({
   type: GET_MOVIE_ESPECIFIC,
 });
 
-const getmoviepecificOk = (movie) => ({
+const getmoviepecificOk = (season) => ({
   type: GET_MOVIES_ESPECIFICOK,
-  payload: movie,
+  payload: season,
 });
 
 const getmoviepecificERROR = () => ({
@@ -43,4 +71,17 @@ const getmoviepecificERROR = () => ({
 
 const retunPage = () => ({
   type: RETURN_BACK,
+});
+
+const getEpisodes = () => ({
+  type: GET_TVSEASONS
+});
+
+const getEpisodesOk = (episodes) => ({
+  type: GET_TVSEASONS_OK,
+  payload: episodes
+});
+
+const getEpisodesError = () => ({
+  type: GET_TVSEASONS_ERROR
 });

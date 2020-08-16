@@ -1,4 +1,4 @@
-import { GET_MOVIES, GET_MOVIES_OK, GET_MOVIES_ERROR } from "../types";
+import { GET_MOVIES, GET_MOVIES_OK, GET_MOVIES_ERROR,GET_MOVIESPAGE_OK,GET_MOVIESPAGE_ERROR  } from "../types";
 
 const initialState = {
   movies: [],
@@ -22,12 +22,21 @@ export default function (state = initialState, action) {
         error: null,
         movies: action.payload,
       };
+    case GET_MOVIESPAGE_ERROR:
     case GET_MOVIES_ERROR:
       return {
         ...state,
         error: true,
       };
-
+    case GET_MOVIESPAGE_OK:
+      console.log(state.movies)
+      return{
+        ...state,
+        movies: [...state.movies,...action.payload]
+       
+      } 
+    
+      
     default:
       return state;
   }

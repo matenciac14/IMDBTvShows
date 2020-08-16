@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getepisodesFromSeason } from "../actions/movieActions";
 
 const TvShows = ({ arr }) => {
-  const result = arr.seasons;
-  console.log(result);
-  const [num, setNum] = useState(0);
-  console.log(num);
+  const loadingE = useSelector((state) => state.movie.loadingE);
+  const season = useSelector((state) => state.movie.season);
+  const episodes = useSelector((state) => state.movie.season.episodes);
 
-  if (num) {
-    console.log("busca " + num + "-");
+  const result = arr.seasons;
+  const [num, setNum] = useState(0);
+
+  const dispatch = useDispatch();
+  const getEpisodesSeason = (id,num) => dispatch(getepisodesFromSeason(id,num));
+
+  useEffect(() => {
+    if(result[num].season_number !== 0){
+      console.log("setNum(1)")
+      getEpisodesSeason(arr.id, 1)
+
+    }
+    getEpisodesSeason(arr.id, num)
+
+  }, [])
+
+  
+ 
+
+  const getepisodes =(num,id)=>{
+    setNum(num)
+    getEpisodesSeason(id,num)
   }
 
+  
+
+
   return (
-    <div className="container-fluid p-0">
+    <div className="container-fluid p-0 ">
       <h2>SEASONS</h2>
       <nav className="table-responsive">
         <ul className="pagination pagination-md m-0">
@@ -23,7 +48,7 @@ const TvShows = ({ arr }) => {
                   }
                   aria-current="page"
                   key={index}
-                  onClick={() => setNum(index)}
+                  onClick={() => getepisodes(index,arr.id)}
                 >
                   <span className="page-link">{index + 1}</span>
                 </li>
@@ -33,51 +58,29 @@ const TvShows = ({ arr }) => {
       </nav>
       <div className="row mt-2">
         <div className="col-12">
-          <div className="list-group" id="list-tab" role="tablist">
-            <a
-              className="list-group-item list-group-item-action active p-0"
-              id="list-home-list"
-              data-toggle="list"
-              href="#list-home"
-              role="tab"
-              aria-controls="home"
-            >
-              <ul className="list-group list-group-horizontal m-0 ">
-                <li className="list-group-item bg-transparent w-20">1</li>
-                <li className="list-group-item bg-transparent w-100">Dapibus ac facilisis in</li>
-              </ul>
-            </a>
-            {/* <a
-              className="list-group-item list-group-item-action"
-              id="list-profile-list"
-              data-toggle="list"
-              href="#list-profile"
-              role="tab"
-              aria-controls="profile"
-            >
-              Profile
-            </a>
-            <a
-              className="list-group-item list-group-item-action"
-              id="list-messages-list"
-              data-toggle="list"
-              href="#list-messages"
-              role="tab"
-              aria-controls="messages"
-            >
-              Messages
-            </a>
-            <a
-              className="list-group-item list-group-item-action"
-              id="list-settings-list"
-              data-toggle="list"
-              href="#list-settings"
-              role="tab"
-              aria-controls="settings"
-            >
-              Settings
-            </a> */}
-          </div>
+        <div className="list-group" id="list-tab" role="tablist">
+        {episodes
+            ? episodes.map((episode, index) => (
+              
+              <a
+                className="list-group-item list-group-item-action  p-0"
+                id="list-home-list"
+                data-toggle="list"
+                href="#list-home"
+                role="tab"
+                aria-controls="home"
+                key={index}
+              >
+                <ul className="list-group list-group-horizontal m-0 ">
+            <li className="list-group-item bg-transparent w-20">{episode.episode_number}</li>
+            <li className="list-group-item bg-transparent w-100">{episode.name}</li>
+                </ul>
+              </a>
+           
+              ))
+            : null}
+             </div>
+          
         </div>
       </div>
     </div>

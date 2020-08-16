@@ -13,16 +13,10 @@ const Movie = (props) => {
   if(!active){
       props.history.push("/")
     } 
-  useEffect(() => {
-    
-   
-  },[active])
-
-
 
 
   return (
-    <div className="container  mt-3">
+    <div className="container  mt-5">
       {loading ? "cargando" :(
       <div className="row mt-2">
         <div className="col-4">
@@ -41,12 +35,22 @@ const Movie = (props) => {
             </div>
           </div>
         </div>
-        <div className="col-8  border">
+        <div className="col-8  ">
           {category === "tv" ? 
          <TvShows
           arr={movie}
          />
-         : "para movie"}
+         : (
+           <div className="contaner  p-2">
+             <h2 className="font-weight-bolder mb-2">{movie.title}</h2>
+              <p className="font-italic">Overview : {movie.overview}</p>
+              <p>Languafe: {movie.original_language}</p>
+              <p>Release Date : {movie.release_date}</p>
+              <p>Average: {movie.vote_average}</p>
+
+           </div>
+           
+           )}
         </div>
       </div>
       )}
