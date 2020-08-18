@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaSearch, FaAngleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import { getMoviesAction } from "../actions/moviesActions";
-import { getMoviesActionPage } from "../actions/moviesActions";
-import { returnPageHome } from "../actions/movieActions";
+import { getmoviename,getmovienamePageOk } from "../actions/moviesActions";
+import { retunPage } from "../actions/movieActions";
 
 const Header = (props) => {
   const { innerHeight: height } = window;
@@ -18,18 +17,15 @@ const Header = (props) => {
 
   const dispatch = useDispatch();
 
-  const getmovies = (word, category) => dispatch(getMoviesAction(word, category));
-  const getNewPage = (word, category,pageCurrent) => dispatch(getMoviesActionPage(word, category,pageCurrent));
-  const returnBack = () => dispatch(returnPageHome());
+  const getmovies = ({word, category}) => dispatch(getmoviename({word, category}));
+  const getNewPage = ({word, category,pageCurrent}) => dispatch(getmovienamePageOk({word, category,pageCurrent}));
+  const returnBack = () => dispatch(retunPage());
 
   useEffect(() => {
     if (textFind !== "" && categoryFind !== "") {
-      getmovies(textFind, categoryFind);
-    }
-
-    
-    console.log("----------------------------------------------"+pageCurrent)
-        
+      getmovies({word:textFind, category:categoryFind});
+    } 
+    setPageCurrent(1)
   }, [textFind, categoryFind]);
 
   const setText = (e) => {
@@ -46,13 +42,12 @@ const Header = (props) => {
 
 
 
-  console.log(pageCurrent + "--" + position.y)
-
   if (position.y >= height * pageCurrent + 100) {
     let aux =pageCurrent;
     console.log("comienza hacer la peticion" +(aux+1));
     setPageCurrent(aux+1)
-    getNewPage(textFind, categoryFind,aux+1);    
+    const page =aux+1
+    getNewPage({word:textFind, category:categoryFind, pageCurrent:page});    
   }
  
 

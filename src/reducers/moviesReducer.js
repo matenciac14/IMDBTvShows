@@ -29,10 +29,10 @@ export default function (state = initialState, action) {
         error: true,
       };
     case GET_MOVIESPAGE_OK:
-      console.log(state.movies)
+      console.log(action.payload)
       return{
         ...state,
-        movies: [...state.movies,...action.payload]
+        movies: [...state.movies.concat(action.payload)]
        
       } 
     

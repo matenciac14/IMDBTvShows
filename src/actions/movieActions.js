@@ -12,76 +12,79 @@ import {
 import clientAxios from "../config/axios";
 import {key} from '../config/key';
 
-export function getMovieDetail(id, category) {
-  console.log(category)
 
-  return async (dispatch) => {
+// export function getMovieDetail(id, category) {
+//   console.log(category)
 
-    dispatch(getmoviepecific());
-    try {
-      const result = await clientAxios.get(
-        `${category}/${id}?api_key=${key}`
-      );
-      console.log(result.data);
-      dispatch(getmoviepecificOk(result.data));
-    } catch (error) {
-      dispatch(getmoviepecificERROR());
-    }
-  };
-}
+//   return async (dispatch) => {
 
-export function returnPageHome() {
-  return (dispatch)=>{
-    dispatch(retunPage());
-  }
-}
+//     dispatch(getmoviepecific());
+//     try {
+//       const result = await clientAxios.get(
+//         `${category}/${id}?api_key=${key}`
+//       );
+//       console.log(result.data);
+//       dispatch(getmoviepecificOk(result.data));
+//     } catch (error) {
+//       dispatch(getmoviepecificERROR());
+//     }
+//   };
+// }
 
-export function getepisodesFromSeason(id,num) {
-console.log(num +"--"+id)
+// export function returnPageHome() {
+//   return (dispatch)=>{
+//     dispatch(retunPage());
+//   }
+// }
 
-return async (dispatch) => {
-  console.log("dispatch")
-  dispatch(getEpisodes());
-  try {
-    const result = await clientAxios.get(
-      `tv/${id}/season/${num}?api_key=${key}`
-    );
-    console.log(result.data);
-    dispatch(getEpisodesOk(result.data));
-  } catch (error) {
-    dispatch(getEpisodesError());
-  }
-};
-}
+// export function getepisodesFromSeason(id,num) {
+// console.log(num +"--"+id)
+
+// return async (dispatch) => {
+//   console.log("dispatch")
+//   dispatch(getEpisodes());
+//   try {
+//     const result = await clientAxios.get(
+//       `tv/${id}/season/${num}?api_key=${key}`
+//     );
+//     console.log(result.data);
+//     dispatch(getEpisodesOk(result.data));
+//   } catch (error) {
+//     dispatch(getEpisodesError());
+//   }
+// };
+// }
 
 
-const getmoviepecific = () => ({
+export const getmoviepecific = (payload) => ({
   type: GET_MOVIE_ESPECIFIC,
+  payload
 });
 
-const getmoviepecificOk = (season) => ({
-  type: GET_MOVIES_ESPECIFICOK,
-  payload: season,
-});
+// const getmoviepecificOk = (season) => ({
+//   type: GET_MOVIES_ESPECIFICOK,
+//   payload: season,
+// });
 
-const getmoviepecificERROR = () => ({
-  type: GET_MOVIES_ESPECIFICERROR,
-  payload: true,
-});
+// const getmoviepecificERROR = () => ({
+//   type: GET_MOVIES_ESPECIFICERROR,
+//   payload: true,
+// });
 
-const retunPage = () => ({
+export const retunPage = () => ({
   type: RETURN_BACK,
 });
 
-const getEpisodes = () => ({
-  type: GET_TVSEASONS
+export const getEpisodes = (payload) => ({
+  type: GET_TVSEASONS,
+  payload
 });
 
-const getEpisodesOk = (episodes) => ({
-  type: GET_TVSEASONS_OK,
-  payload: episodes
-});
+// const getEpisodesOk = (episodes) => ({
+//   type: GET_TVSEASONS_OK,
+//   payload: episodes
+// });
 
-const getEpisodesError = () => ({
-  type: GET_TVSEASONS_ERROR
-});
+// const getEpisodesError = () => ({
+//   type: GET_TVSEASONS_ERROR
+// });

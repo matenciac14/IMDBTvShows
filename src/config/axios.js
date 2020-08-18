@@ -1,11 +1,20 @@
-import axios from 'axios';
+ import axios from 'axios';
 
-const url = "https://api.themoviedb.org/3/";
+//const urlb = "https://api.themoviedb.org/3/";
 
 
-const clientAxios = axios.create({
-    baseURL:url
-})
+ const clientAxios= axios.create(
+//      {
+//     baseURL:urlb
+// }
+)
 
 export default clientAxios
+
+export const  apicall =(method, url)=>{
+    //const urlb = "https://api.themoviedb.org/3/";
+    return fetch(url,{
+        method
+    }).then( Response =>Response.json())
+}
 

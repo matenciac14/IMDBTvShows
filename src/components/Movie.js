@@ -6,9 +6,8 @@ const Movie = (props) => {
   const movie = useSelector((state) => state.movie.movie);
   const active = useSelector((state) => state.movie.active);
   const loading = useSelector((state) => state.movie.loading);
-  const category = useSelector((state) => state.movies.category);
+  const category = useSelector((state) => state.movies.category.category);
 
-  const [numSeason, setNumSeason] = useState(0)
  
   if(!active){
       props.history.push("/")

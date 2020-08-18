@@ -1,39 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getepisodesFromSeason } from "../actions/movieActions";
+import { getEpisodes } from "../actions/movieActions";
 
 const TvShows = ({ arr }) => {
-  const loadingE = useSelector((state) => state.movie.loadingE);
-  const season = useSelector((state) => state.movie.season);
   const episodes = useSelector((state) => state.movie.season.episodes);
 
   const result = arr.seasons;
   const [num, setNum] = useState(0);
 
   const dispatch = useDispatch();
-  const getEpisodesSeason = (id,num) => dispatch(getepisodesFromSeason(id,num));
+  const getEpisodesSeason = ({ id, num }) => dispatch(getEpisodes({ id, num }));
 
   useEffect(() => {
-    if(result[num].season_number !== 0){
-      console.log("setNum(1)")
-      getEpisodesSeason(arr.id, 1)
-
+    //console.log(result);
+    if (result[num].season_number !== 0) {
+      console.log("setNum(1)");
+      getEpisodesSeason({ id: arr.id, num: 1 });
+    } else {
+      getEpisodesSeason({ id: arr.id, num });
     }
-    getEpisodesSeason(arr.id, num)
+  }, []);
 
-  }, [])
-
-  
- 
-
-  const getepisodes =(num,id)=>{
-    setNum(num)
-    getEpisodesSeason(id,num)
-  }
-
-  
-
+  const getepisodes = (nume, id) => {
+    console.log("enviaaaaa" + nume + "----" + num);
+    setNum(nume);
+    if (nume === 0 && result[0].season_number === 1) {
+      getEpisodesSeason({ id, num: nume + 1 });
+    } else {
+      getEpisodesSeason({ id, num: nume + 1 });
+    }
+  };
 
   return (
     <div className="container-fluid p-0 ">
@@ -48,7 +45,7 @@ const TvShows = ({ arr }) => {
                   }
                   aria-current="page"
                   key={index}
-                  onClick={() => getepisodes(index,arr.id)}
+                  onClick={() => getepisodes(index, arr.id)}
                 >
                   <span className="page-link">{index + 1}</span>
                 </li>
@@ -58,29 +55,30 @@ const TvShows = ({ arr }) => {
       </nav>
       <div className="row mt-2">
         <div className="col-12">
-        <div className="list-group" id="list-tab" role="tablist">
-        {episodes
-            ? episodes.map((episode, index) => (
-              
-              <a
-                className="list-group-item list-group-item-action  p-0"
-                id="list-home-list"
-                data-toggle="list"
-                href="#list-home"
-                role="tab"
-                aria-controls="home"
-                key={index}
-              >
-                <ul className="list-group list-group-horizontal m-0 ">
-            <li className="list-group-item bg-transparent w-20">{episode.episode_number}</li>
-            <li className="list-group-item bg-transparent w-100">{episode.name}</li>
-                </ul>
-              </a>
-           
-              ))
-            : null}
-             </div>
-          
+          <div className="list-group" id="list-tab" role="tablist">
+            {episodes
+              ? episodes.map((episode, index) => (
+                  <a
+                    className="list-group-item list-group-item-action  p-0"
+                    id="list-home-list"
+                    data-toggle="list"
+                    href="#list-home"
+                    role="tab"
+                    aria-controls="home"
+                    key={index}
+                  >
+                    <ul className="list-group list-group-horizontal m-0 ">
+                      <li className="list-group-item bg-transparent w-20">
+                        {episode.episode_number}
+                      </li>
+                      <li className="list-group-item bg-transparent w-100">
+                        {episode.name}
+                      </li>
+                    </ul>
+                  </a>
+                ))
+              : null}
+          </div>
         </div>
       </div>
     </div>
