@@ -1,7 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getmoviepecific } from "../actions/movieActions";
-
 
 const Movies = (props) => {
   const moviesx = useSelector((state) => state.movies.movies);
@@ -11,17 +10,16 @@ const Movies = (props) => {
   const [movies, setMovies] = useState(moviesx);
 
   const dispatch = useDispatch();
-  const getMovieAction = ({id, category}) => dispatch(getmoviepecific({id, category}));
+  const getMovieAction = ({ id, category }) =>
+    dispatch(getmoviepecific({ id, category }));
 
   const setSpecificMovie = (movie) => {
-    getMovieAction({id:movie, category});
+    getMovieAction({ id: movie, category });
     props.history.push("/movie");
   };
   useEffect(() => {
-    setMovies(moviesx)       
-  }, [moviesx])
-
-  
+    setMovies(moviesx);
+  }, [moviesx]);
 
   return (
     <>

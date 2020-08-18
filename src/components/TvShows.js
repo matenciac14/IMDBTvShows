@@ -23,7 +23,6 @@ const TvShows = ({ arr }) => {
   }, []);
 
   const getepisodes = (nume, id) => {
-    console.log("enviaaaaa" + nume + "----" + num);
     setNum(nume);
     if (nume === 0 && result[0].season_number === 1) {
       getEpisodesSeason({ id, num: nume + 1 });

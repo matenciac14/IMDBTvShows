@@ -1,17 +1,15 @@
-import { 
+import {
   GET_MOVIE_ESPECIFIC,
-  GET_MOVIES_ESPECIFICOK,
-  GET_MOVIES_ESPECIFICERROR,
   RETURN_BACK,
   GET_TVSEASONS,
-  GET_TVSEASONS_OK,
-  GET_TVSEASONS_ERROR
-  
+  // GET_MOVIES_ESPECIFICOK,
+  // GET_MOVIES_ESPECIFICERROR,
+  // GET_TVSEASONS_OK,
+  // GET_TVSEASONS_ERROR
 } from "../types";
 
-import clientAxios from "../config/axios";
-import {key} from '../config/key';
-
+//import clientAxios from "../config/axios";
+//import {key} from '../config/key';
 
 // export function getMovieDetail(id, category) {
 //   console.log(category)
@@ -54,13 +52,6 @@ import {key} from '../config/key';
 //   }
 // };
 // }
-
-
-export const getmoviepecific = (payload) => ({
-  type: GET_MOVIE_ESPECIFIC,
-  payload
-});
-
 // const getmoviepecificOk = (season) => ({
 //   type: GET_MOVIES_ESPECIFICOK,
 //   payload: season,
@@ -71,15 +62,6 @@ export const getmoviepecific = (payload) => ({
 //   payload: true,
 // });
 
-export const retunPage = () => ({
-  type: RETURN_BACK,
-});
-
-export const getEpisodes = (payload) => ({
-  type: GET_TVSEASONS,
-  payload
-});
-
 // const getEpisodesOk = (episodes) => ({
 //   type: GET_TVSEASONS_OK,
 //   payload: episodes
@@ -88,3 +70,17 @@ export const getEpisodes = (payload) => ({
 // const getEpisodesError = () => ({
 //   type: GET_TVSEASONS_ERROR
 // });
+
+export const getmoviepecific = (payload) => ({
+  type: GET_MOVIE_ESPECIFIC,
+  payload,
+});
+
+export const retunPage = () => ({
+  type: RETURN_BACK,
+});
+
+export const getEpisodes = (payload) => ({
+  type: GET_TVSEASONS,
+  payload,
+});

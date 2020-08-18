@@ -1,8 +1,11 @@
-import { GET_MOVIES, GET_MOVIES_OK, GET_MOVIES_ERROR,GET_MOVIESPAGE_OK,GET_MOVIESPAGE_ERROR } from "../types";
-import {key} from '../config/key';
+import {
+  GET_MOVIES,
+  GET_MOVIESPAGE_OK,
+  //GET_MOVIES_OK, GET_MOVIES_ERROR,GET_MOVIESPAGE_ERROR
+} from "../types";
+//import {key} from '../config/key';
 
-import clientAxios from "../config/axios";
-
+//import clientAxios from "../config/axios";
 
 //REDUX THUNK
 // export function getMoviesAction(word, category) {
@@ -36,12 +39,6 @@ import clientAxios from "../config/axios";
 //     }
 //   };
 // }
-
-export const getmoviename = (category) => ({
-  type: GET_MOVIES,
-  payload:category
-});
-
 // const getmovienameOk = movies => ({
 //   type: GET_MOVIES_OK,
 //   payload: movies,
@@ -52,15 +49,17 @@ export const getmoviename = (category) => ({
 //   payload: true,
 // });
 
-export const getmovienamePageOk = (moviesNew) => ({
-  type: GET_MOVIESPAGE_OK,
-  payload: moviesNew,
-});
-
-
 // const getmovienamePageERROR = () => ({
 //   type: GET_MOVIESPAGE_ERROR,
 //   payload: true,
 // });
 
+export const getmoviename = (category) => ({
+  type: GET_MOVIES,
+  payload: category,
+});
 
+export const getmovienamePageOk = (moviesNew) => ({
+  type: GET_MOVIESPAGE_OK,
+  payload: moviesNew,
+});

@@ -1,8 +1,14 @@
-import { GET_MOVIES, GET_MOVIES_OK, GET_MOVIES_ERROR,GET_MOVIESPAGE_OK,GET_MOVIESPAGE_ERROR  } from "../types";
+import {
+  GET_MOVIES,
+  GET_MOVIES_OK,
+  GET_MOVIES_ERROR,
+  GET_MOVIESPAGE_OK,
+  GET_MOVIESPAGE_ERROR,
+} from "../types";
 
 const initialState = {
   movies: [],
-  category:"",
+  category: "",
   error: null,
   loading: false,
 };
@@ -13,7 +19,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: true,
-        category:action.payload,
+        category: action.payload,
       };
     case GET_MOVIES_OK:
       return {
@@ -29,14 +35,12 @@ export default function (state = initialState, action) {
         error: true,
       };
     case GET_MOVIESPAGE_OK:
-      console.log(action.payload)
-      return{
+      console.log(action.payload);
+      return {
         ...state,
-        movies: [...state.movies.concat(action.payload)]
-       
-      } 
-    
-      
+        movies: [...state.movies.concat(action.payload)],
+      };
+
     default:
       return state;
   }
